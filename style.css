@@ -1,0 +1,81 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+section {
+    min-height: 92vh;
+    background: url('img/photo-1518924425995-9542eb895b7a.jpg') no-repeat;
+    /* background: url('https://source.unsplash.com/1920x1080/?water,ocean') no-repeat; */
+    background-size: cover;
+    background-position: center;
+    margin: 4vh;
+    padding: 1em 0 0 0;
+    box-shadow: 0 0 1em black;
+}
+
+textarea:focus, input:focus, button:focus{
+    outline: none;
+    border: 1px solid lightblue;
+    box-shadow: 0 0 5px 2px lightblue inset;
+
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}
+
+.landing-page-wrapper {
+    color: white;
+    /* display: block; */
+    margin: 30vh auto 0 auto;
+
+    width: 50vw;
+    text-align: center;
+    /* border: 1px solid white; */
+    /* border-radius: 2em; */
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    position: relative;
+}
+.landing-page-wrapper::after {
+    content: '';
+    position: absolute;
+    top: -7em; left: 0;
+    width: 0;
+    height: 0;
+    border-top: 7em solid transparent;
+    border-left: 50vw solid rgba(0, 0, 0, 0.3);
+    border-bottom: 0em solid transparent;
+}
+
+.fullname {
+    display: block;
+    margin: 1em auto;
+    padding: 1em;
+    height: 3em;
+    min-width: 40%;
+    max-width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 1em;
+    color: white;
+    border: 1px solid white;
+    border-radius: 2em; 
+}
+button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid white;
+    border-radius: 1.5em;
+    font-size: 1em;
+    padding: 1em;
+
+}
+
