@@ -5,6 +5,7 @@ body{
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    color: white;
 }
 
 section {
@@ -16,6 +17,15 @@ section {
     margin: 4vh;
     padding: 1em 0 0 0;
     box-shadow: 0 0 1em black;
+}
+button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid white;
+    border-radius: 1em;
+    font-size: 0.75em;
+    padding: 1em;
+
 }
 
 textarea:focus, input:focus, button:focus{
@@ -69,13 +79,53 @@ input:-webkit-autofill:active {
     border: 1px solid white;
     border-radius: 2em; 
 }
-button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: 1px solid white;
-    border-radius: 1.5em;
-    font-size: 1em;
+
+.admin-panel-wrapper {
+    
+}
+.header {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 60vw;
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header h2 {
+    margin-left: 1em;
+    display: inline-block;
+}
+.header button {
+   margin-right: 1em;
+}
+.forms-wrapper{
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 60vw;
+    margin: 1em;
+    padding: 1em;
+}
+.forms-wrapper textarea{
+    display: block;
+    margin: 1em;
+    width: 40vw;
+    border-radius: 1em;
+}
+.forms-wrapper input {
+    margin: 0.5em;
+}
+
+.results-list-container{
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 30vw;
+    min-height: 10vh;
+}
+.clear {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 1em;
 
 }
-
+.clear h2{
+    display: inline-block;
+}

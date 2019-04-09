@@ -21,8 +21,38 @@
     </section>
     <section class="admin-panel-section">
         <div class="admin-panel-wrapper">
-
+            <div class="header">
+                <h2>Add Questions</h2>
+                <button id="admin-logout-btn">Logout</button>
+            </div>
+            <div class="forms-wrapper">
+                <button id="question-update-btn">Update</button>
+                <button id="question-delete-btn">Delete</button>
+                <textarea name="question-text" id="new-question-text" cols="" rows="" placeholder="New question"></textarea>
+                <div class="admin-options-container">
+                    <div class="admin-option-wrapper">
+                        <input type="radio" name="answer" class="admin-option-0" value="0">
+                        <input type="text" id="admin-option admin-option-0" value="">
+                    </div>
+                    <div class="admin-option-wrapper">
+                        <input type="radio" name="answer" class="admin-option-1" value="1">
+                        <input type="text" id="admin-option admin-option-1" value="">
+                    </div>
+                </div>
+                <button id="question-insert-btn">Insert</button>
+            </div>
+            <button id="question-clear-btn">Clear List</button>
         </div>
+        <div class="results-list-container">
+            <div class="clear">
+                <h2>Results</h2>
+                <button id="results-clear-btn">Clear Results</button>
+            </div>
+            <div class="result-list-wrapper">
+                
+            </div>
+        </div>
+
     </section>
 
     <section class="quiz-page-section">
