@@ -20,6 +20,7 @@
         </div>
     </section>
     <section class="admin-panel-section">
+
         <div class="admin-panel-wrapper">
             <div class="header">
                 <h2>Add Questions</h2>
@@ -28,6 +29,7 @@
             <div class="forms-wrapper">
                 <button id="question-update-btn">Update</button>
                 <button id="question-delete-btn">Delete</button>
+                
                 <textarea name="question-text" id="new-question-text" cols="" rows="" placeholder="New question"></textarea>
                 <div class="admin-options-container">
                     <div class="admin-option-wrapper">
@@ -49,17 +51,62 @@
                 <button id="results-clear-btn">Clear Results</button>
             </div>
             <div class="result-list-wrapper">
+                <p class="person person-1"><span class="person-1">John Doe 5 points</span><button id="delete-result-btn_1" class="delete-result-btn">Delete</button></p>
+            </div>
+        </div>
+        <div class="inserted-question-wrapper">
+            <p><span>1. Question text</span><button id="question-1">edit</button></p>
+        </div>
+
+    </section>
+
+
+    <section class="quiz-page-section">
+        <div class="quiz-wrapper">
+            <h2 id="asked-question-text">Question Text</h2>
+            <div class="instant-answer-container">
+                <img id="emotion" src="#">
+                <div id="instant-answer-wrapper">
+                    <p class="" id="instant-answer-text">Correct answer</p>
+                    <button id="next-question-btn">Next</button>
+                </div>
+            </div>
+
+            <div class="quiz-options-wrapper">
+                <div class="choice-0">
+                    <span class="choice-0">A</span>
+                    <p class="choice-0">test1</p>
+                </div>
+                <div class="choice-1">
+                    <span class="choice-1">B</span>
+                    <p class="choice-1">test2</p>
+                </div>
+                <div class="choice-2">
+                    <span class="choice-2">C</span>
+                    <p class="choice-2">test3</p>
+                </div>
+                <div class="choice-3">
+                    <span class="choice-3">D</span>
+                    <p class="choice-3">test4</p>
+                </div>
                 
             </div>
         </div>
-
-    </section>
-
-    <section class="quiz-page-section">
-        <div class="quiz-page-wrapper">
-
+        <!-- progress bar -->
+        <div class="progressBar">
+            <p id="progress">2/22</p>
+            <progress value="30" max="100"></progress>
         </div>
     </section>
+    <section class="final-reult-container">
+        <div class="final-result-wrapper">
+            <div class="final-result">
+                <a href=""><button id="final-logout-btn">Logout</button></a>
+                <h2 id="ifnal-score-text">Nick Doe - 33</h2>
+            </div>
+        </div>
+    </section>
+
     
 <script src="script.js"></script>
 </body>

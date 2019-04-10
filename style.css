@@ -81,10 +81,10 @@ input:-webkit-autofill:active {
 }
 
 .admin-panel-wrapper {
-    
+    background-color: rgba(0, 0, 0, 0.3);
 }
 .header {
-    background-color: rgba(0, 0, 0, 0.3);
+    /* background-color: rgba(0, 0, 0, 0.3); */
     width: 60vw;
     margin: 1rem;
     display: flex;
@@ -99,7 +99,7 @@ input:-webkit-autofill:active {
    margin-right: 1em;
 }
 .forms-wrapper{
-    background-color: rgba(0, 0, 0, 0.3);
+    /* background-color: rgba(0, 0, 0, 0.3); */
     width: 60vw;
     margin: 1em;
     padding: 1em;
@@ -109,6 +109,7 @@ input:-webkit-autofill:active {
     margin: 1em;
     width: 40vw;
     border-radius: 1em;
+    padding: 0.5em;
 }
 .forms-wrapper input {
     margin: 0.5em;
