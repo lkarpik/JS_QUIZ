@@ -1,6 +1,7 @@
 /*******************************
 ******** QUIZ CONTROLLER *******
 *******************************/
+
 let quizController = (function() {
 
     // *** Question Constructor ***
@@ -22,14 +23,13 @@ let quizController = (function() {
             localStorage.removeItem('questionCollection')
         }
     };
+    if(questionLocalStorage.getQuestionCollection() === null) {
+        questionLocalStorage.setQuestionCollection([]);
+    }
 
     return {
         addQuestionOnLocalStorage: function(newQuestionText, opts) {
             let optionsArr, corrAns, questionId, newQuestion, getStoredQuestions, isChecked;
-
-            if(questionLocalStorage.getQuestionCollection() === null) {
-                questionLocalStorage.setQuestionCollection([]);
-            }
 
             optionsArr = [];
             isChecked = false;
@@ -64,22 +64,34 @@ let quizController = (function() {
                         questionLocalStorage.setQuestionCollection(getStoredQuestions);
             
                         newQuestionText.value = "";
-            
-                        opts.forEach(element => {
-                            element.value = "";
-                            element.previousElementSibling.checked = false;
-                        });
+                        for(let i = 0; i < opts.length; i++){
+                            
+                            opts[i].value = "";
+                            opts[i].previousElementSibling.checked = false;
+                            if(i>1){
+                                opts[i].parentElement.remove();
+                            }
+                        }
+                        // opts.forEach(element => {
+                        //     element.value = "";
+                        //     element.previousElementSibling.checked = false;
+                        // });
+                        return true;
                     } else {
                         alert('Check the correct answer');
+                        return false;
                     }
 
                 } else {
                     alert('Please insert at least 2 options');
+                    return false;
                 }
             } else {
                 alert('Please insert question');
+                return false;
             }            
-        }
+        },
+        getQuestionLocalStorage: questionLocalStorage
     };
 
 })();
@@ -87,14 +99,18 @@ let quizController = (function() {
 /*******************************
 ******** UI CONTROLLER *********
 *******************************/
+
 let UIController = (function() {
     
     let domItems = {
-        // *** Admin Panel Elements
+        // *** Admin Panel Elements ***
         questInsertButton: document.getElementById("question-insert-btn"),
         newQuestionText: document.getElementById("new-question-text"),
         adminOptions: document.querySelectorAll(".admin-option"),
-        adminOptionsContainer: document.querySelector(".admin-options-container")
+        adminOptionsContainer: document.querySelector(".admin-options-container"),
+        insertedQuestionsWrapper: document.querySelector(".inserted-questions-wrapper"),
+        questionUpdateBtn: document.getElementById("question-update-btn"),
+        questionDeleteBtn: document.getElementById("question-delete-btn")
     };
     return {
         getDomItems: domItems,
@@ -113,6 +129,52 @@ let UIController = (function() {
                 domItems.adminOptionsContainer.lastElementChild.lastElementChild.addEventListener('focus', addInput)
             }
             domItems.adminOptionsContainer.lastElementChild.lastElementChild.addEventListener('focus', addInput)
+        },
+        createQuestionList: function(getQuestions) {
+            let questionHTML;
+            domItems.insertedQuestionsWrapper.innerHTML = "";
+            
+            for(let i = 0; i <getQuestions.length; i++) {
+                
+                questionHTML = `<p><span>${i+1}. ${getQuestions[i].questionText}</span><button id="question-${getQuestions[i].id}">Edit</button></p>`;
+                let div = document.createElement('div');
+                div.innerHTML = questionHTML;
+                domItems.insertedQuestionsWrapper.insertAdjacentElement('afterbegin', div);
+            } 
+        },
+
+        editQuestionList: function(event, sotrageQuestionList, addInputsDynamically) {
+            let getID, getStorageQuestionList, foundItem, placeInArray, optionHTML;
+            if('question-'.indexOf(event.target.id)) {
+                getID = parseInt(event.target.id.split('-')[1]);
+                
+                getStorageQuestionList = sotrageQuestionList.getQuestionCollection();
+                for (let i = 0; i < getStorageQuestionList.length; i++) {
+                    if(getStorageQuestionList[i].id === getID){
+                        foundItem = getStorageQuestionList[i];
+                        placeInArray = i;
+
+                    }
+                }
+                domItems.newQuestionText.value = foundItem.questionText;
+                domItems.adminOptionsContainer.innerHTML = "";
+                optionHTML = ""
+
+                for(let i = 0; i < foundItem.options.length; i++){
+                    optionHTML += 
+                        `<div class="admin-option-wrapper">
+                        <input type="radio" class="admin-option-${i}" name="answer" value="${i}">
+                        <input type="text" class="admin-option admin-option-${i}" value="${foundItem.options[i]}">
+                        </div>`;
+                }
+                domItems.adminOptionsContainer.innerHTML = optionHTML;
+                domItems.questionUpdateBtn.style.visibility = 'visible';
+                domItems.questionDeleteBtn.style.visibility = 'visible';
+                domItems.questInsertButton.style.visibility = 'hidden';
+                addInputsDynamically();
+            }
+            
+            
         }
     };
 
@@ -121,14 +183,23 @@ let UIController = (function() {
 /*******************************
 ******** CONTROLLER ***********
 *******************************/
+
 let controller = (function(quizCtrl, UICtrl) {
     let selectedDomItems = UICtrl.getDomItems;
     UICtrl.addInputsDynamically();
+    UICtrl.createQuestionList(quizCtrl.getQuestionLocalStorage.getQuestionCollection());
 
     selectedDomItems.questInsertButton.addEventListener('click', function(){
         let adminOptions = document.querySelectorAll('.admin-option');
-        quizCtrl.addQuestionOnLocalStorage(selectedDomItems.newQuestionText, adminOptions);
-        
+        if(quizCtrl.addQuestionOnLocalStorage(selectedDomItems.newQuestionText, adminOptions)){
+            UICtrl.addInputsDynamically();
+            UICtrl.createQuestionList(quizCtrl.getQuestionLocalStorage.getQuestionCollection());
+        };
     });
+
+    selectedDomItems.insertedQuestionsWrapper.addEventListener('click', function(e){
+        UIController.editQuestionList(e, quizCtrl.getQuestionLocalStorage, UICtrl.addInputsDynamically);
+        // UICtrl.addInputsDynamically();
+    })
     
 })(quizController, UIController);
