@@ -146,7 +146,7 @@ let UIController = (function() {
             } 
         },
 
-        editQuestionList: function(event, sotrageQuestionList, addInputsDynamically) {
+        editQuestionList: function(event, sotrageQuestionList, addInputsDynamically, updateQuestionListFn) {
             let getID, getStorageQuestionList, foundItem, placeInArray, optionHTML;
             if('question-'.indexOf(event.target.id)) {
                 getID = parseInt(event.target.id.split('-')[1]);
@@ -201,7 +201,22 @@ let UIController = (function() {
                             if(foundItem.correnctAnswer !== ""){
                                 getStorageQuestionList.splice(placeInArray, 1, foundItem);
                                 sotrageQuestionList.setQuestionCollection(getStorageQuestionList);
-                                
+                                domItems.newQuestionText.value = "";
+                                for(let i = 0; i < optionsEls.length; i++){
+                            
+                                    optionsEls[i].value = "";
+                                    optionsEls[i].previousElementSibling.checked = false;
+                                    if(i>1){
+                                        optionsEls[i].parentElement.remove();
+                                    }
+                                    addInputsDynamically();
+                                    domItems.questionUpdateBtn.style.visibility = 'hidden';
+                                    domItems.questionDeleteBtn.style.visibility = 'hidden';
+                                    domItems.questInsertButton.style.visibility = 'visible';
+                                    domItems.questionsClearBtn.style.pointerEvents = '';
+
+                                    updateQuestionListFn(getStorageQuestionList);
+                                }
                             } else {
                                 alert("Check the correct answer");
                             } 
@@ -240,7 +255,7 @@ let controller = (function(quizCtrl, UICtrl) {
     });
 
     selectedDomItems.insertedQuestionsWrapper.addEventListener('click', function(e){
-        UIController.editQuestionList(e, quizCtrl.getQuestionLocalStorage, UICtrl.addInputsDynamically);
+        UIController.editQuestionList(e, quizCtrl.getQuestionLocalStorage, UICtrl.addInputsDynamically, UICtrl.createQuestionList);
         // UICtrl.addInputsDynamically();
     })
     
