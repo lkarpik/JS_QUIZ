@@ -177,6 +177,26 @@ let UIController = (function() {
                 domItems.questionsClearBtn.style.pointerEvents = 'none';
 
                 addInputsDynamically();
+
+                let backDeafaultView = function(optionsEls) {
+                    domItems.newQuestionText.value = "";
+                    for(let i = 0; i < optionsEls.length; i++){
+                
+                        optionsEls[i].value = "";
+                        optionsEls[i].previousElementSibling.checked = false;
+                        if(i>1){
+                            optionsEls[i].parentElement.remove();
+                        }                                  
+                    }
+                    
+                    domItems.questionUpdateBtn.style.visibility = 'hidden';
+                    domItems.questionDeleteBtn.style.visibility = 'hidden';
+                    domItems.questInsertButton.style.visibility = 'visible';
+                    domItems.questionsClearBtn.style.pointerEvents = '';
+
+                    updateQuestionListFn(getStorageQuestionList);
+                    addInputsDynamically();
+                }
                 
                 let updateQuestion = function() {
                     let newOptions, optionsEls;
@@ -201,6 +221,7 @@ let UIController = (function() {
                             if(foundItem.correnctAnswer !== ""){
                                 getStorageQuestionList.splice(placeInArray, 1, foundItem);
                                 sotrageQuestionList.setQuestionCollection(getStorageQuestionList);
+                                /*
                                 domItems.newQuestionText.value = "";
                                 for(let i = 0; i < optionsEls.length; i++){
                             
@@ -208,15 +229,18 @@ let UIController = (function() {
                                     optionsEls[i].previousElementSibling.checked = false;
                                     if(i>1){
                                         optionsEls[i].parentElement.remove();
-                                    }
-                                    addInputsDynamically();
-                                    domItems.questionUpdateBtn.style.visibility = 'hidden';
-                                    domItems.questionDeleteBtn.style.visibility = 'hidden';
-                                    domItems.questInsertButton.style.visibility = 'visible';
-                                    domItems.questionsClearBtn.style.pointerEvents = '';
-
-                                    updateQuestionListFn(getStorageQuestionList);
+                                    }                                  
                                 }
+                                
+                                domItems.questionUpdateBtn.style.visibility = 'hidden';
+                                domItems.questionDeleteBtn.style.visibility = 'hidden';
+                                domItems.questInsertButton.style.visibility = 'visible';
+                                domItems.questionsClearBtn.style.pointerEvents = '';
+
+                                updateQuestionListFn(getStorageQuestionList);
+                                */
+                                backDeafaultView(optionsEls);
+                                
                             } else {
                                 alert("Check the correct answer");
                             } 
@@ -229,9 +253,48 @@ let UIController = (function() {
                 }
 
                 domItems.questionUpdateBtn.onclick = updateQuestion;
+
+                
+                let deleteQuestion = function () {
+                    let optionsEls;
+                    optionsEls = document.querySelectorAll(".admin-option");
+
+                    getStorageQuestionList.splice(placeInArray, 1); 
+                    sotrageQuestionList.setQuestionCollection(getStorageQuestionList);
+                    /*
+                    domItems.newQuestionText.value = "";
+                    for(let i = 0; i < optionsEls.length; i++) {   
+                        optionsEls[i].value = "";
+                        optionsEls[i].previousElementSibling.checked = false;
+                        if(i>1) {
+                            optionsEls[i].parentElement.remove();
+                        }
+                    }
+                    // addInputsDynamically();
+                    domItems.questionUpdateBtn.style.visibility = 'hidden';
+                    domItems.questionDeleteBtn.style.visibility = 'hidden';
+                    domItems.questInsertButton.style.visibility = 'visible';
+                    domItems.questionsClearBtn.style.pointerEvents = '';
+
+                    updateQuestionListFn(getStorageQuestionList);
+                    */
+                    backDeafaultView(optionsEls);
+                }
+                domItems.questionDeleteBtn.onclick = deleteQuestion;
+            }; 
+        },
+
+        clearQuestionList: function(sotrageQuestionList) {
+            if(sotrageQuestionList.getQuestionCollection() !== null){
+                if(sotrageQuestionList.getQuestionCollection().length > 0) {
+                    let conf = confirm("Warning: You will loose entire list!");
+                    if(conf){
+                        sotrageQuestionList.removeQuestionCollection();
+                        domItems.insertedQuestionsWrapper.innerHTML = "";
+                        sotrageQuestionList.setQuestionCollection([]);
+                    }
+                }
             }
-            
-            
         }
     };
 
@@ -258,5 +321,10 @@ let controller = (function(quizCtrl, UICtrl) {
         UIController.editQuestionList(e, quizCtrl.getQuestionLocalStorage, UICtrl.addInputsDynamically, UICtrl.createQuestionList);
         // UICtrl.addInputsDynamically();
     })
+    selectedDomItems.questionsClearBtn.addEventListener('click', function() {
+        UICtrl.clearQuestionList(quizController.getQuestionLocalStorage)
+    });
     
 })(quizController, UIController);
+
+// 17 Displaz questions
