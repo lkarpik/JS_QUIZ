@@ -19,7 +19,7 @@ section.landing-page-container {
 }
 
 div.landing-page-wrapper {
-    background: linear-gradient(to bottom right,rgba(0, 0, 0, .3), rgba(0, 0, 0, .5)), url("images/landing-bg.jpg") no-repeat center;
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, .3), rgba(0, 0, 0, .5)), url("images/landing-bg.jpg") no-repeat center;
     font-family: 'Raleway', sans-serif;
     height: 90vh;
     width: 95%;
@@ -59,8 +59,9 @@ div.landing-inputs-wrapper {
 
 @keyframes fade {
     0% {
-        opacity: 0; 
+        opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -82,16 +83,19 @@ div.landing-inputs-wrapper input {
     display: block;
 }
 
-div.landing-inputs-wrapper input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #aaa;
+div.landing-inputs-wrapper input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #aaa;
 }
-div.landing-inputs-wrapper input::-moz-placeholder { /* Firefox 19+ */
-  color: #aaa;
+
+div.landing-inputs-wrapper input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #aaa;
 }
 
 div.landing-inputs-wrapper input:focus {
     border-bottom: 2px solid #fff;
-     border-bottom: 2px solid #fff;
+    border-bottom: 2px solid #fff;
 }
 
 #start-quiz-btn {
@@ -116,6 +120,7 @@ div.landing-inputs-wrapper input:focus {
     color: #fff;
     transform: translateX(-1px);
 }
+
 /**************************************
 ***********END LANDING SECTION*********
 **************************************/
@@ -130,7 +135,7 @@ section.admin-panel-container {
     width: 95%;
     margin: 5vh 2.5%;
     position: relative;
-    background: linear-gradient(to bottom right,rgba(0, 0, 0, .3), rgba(0, 0, 0, .7)), url("images/admin-bg.jpg") no-repeat center;
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, .3), rgba(0, 0, 0, .7)), url("images/admin-bg.jpg") no-repeat center;
     box-shadow: 15px 15px 35px #999;
     background-size: cover;
     overflow: hidden;
@@ -149,15 +154,15 @@ div.admin-panel-wrapper {
 }
 
 div.admin-panel-wrapper::-webkit-scrollbar {
-    background: rgba(0,0,0,.2);
+    background: rgba(0, 0, 0, .2);
     width: 15px
 }
 
 div.admin-panel-wrapper::-webkit-scrollbar-thumb {
-      background-color: #333; 
+    background-color: #333;
 }
 
-div.header{
+div.header {
     overflow: hidden;
 }
 
@@ -257,7 +262,7 @@ div.forms-wrapper input[type="radio"] {
     font-size: 15px;
     float: right;
     margin: 20px;
-    background-color: #222; 
+    background-color: #222;
     border-radius: 25px;
     width: 110px;
     letter-spacing: 1.5px;
@@ -271,7 +276,7 @@ div.forms-wrapper input[type="radio"] {
 #admin-logout-btn:hover {
     color: #fff;
     border: 1px solid #fff;
-    background-color: #555; 
+    background-color: #555;
 }
 
 #questions-clear-btn {
@@ -353,12 +358,12 @@ div.inserted-questions-wrapper {
 }
 
 div.inserted-questions-wrapper::-webkit-scrollbar {
-    background: rgba(0,0,0,.2);
+    background: rgba(0, 0, 0, .2);
     width: 15px;
 }
 
 div.inserted-questions-wrapper::-webkit-scrollbar-thumb {
-      background-color: #333; 
+    background-color: #333;
 }
 
 div.inserted-questions-wrapper p {
@@ -438,7 +443,7 @@ div.results-list-container h2 {
     outline: none;
     border: 1px solid #ccc;
     transition: all .3s;
-} 
+}
 
 #results-clear-btn:hover {
     border: 1px solid #fff;
@@ -447,13 +452,14 @@ div.results-list-container h2 {
 }
 
 div.results-list-container::-webkit-scrollbar {
-    background: rgba(0,0,0,.2);
+    background: rgba(0, 0, 0, .2);
     width: 15px
 }
 
 div.results-list-container::-webkit-scrollbar-thumb {
-      background-color: #333;  
+    background-color: #333;
 }
+
 div.results-list-container p {
     font-family: 'Josefin Sans', sans-serif;
     width: 90%;
@@ -462,7 +468,7 @@ div.results-list-container p {
     text-align: center;
     border-radius: 2px;
     border: 1px solid #ccc;
-    text-transform:capitalize;
+    text-transform: capitalize;
     overflow: hidden;
     color: #eee;
     background: #444;
@@ -492,12 +498,13 @@ div.results-list-container p span {
     border: 1px solid #ccc;
     outline: none;
     transition: background .3s, border .3s;
-} 
+}
 
 .delete-result-btn:hover {
     background: #777;
     border: 1px solid #fff;
 }
+
 /**************************************
 ***********END LANDING SECTION*********
 **************************************/
@@ -510,7 +517,7 @@ section.quiz-container {
     width: 95%;
     margin: 5vh 2.5%;
     position: relative;
-    background: linear-gradient(to bottom right,rgba(0, 0, 0, .35), rgba(0, 0, 0, .75)), url("images/quiz-bg.jpg") no-repeat center;
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, .35), rgba(0, 0, 0, .75)), url("images/quiz-bg.jpg") no-repeat center;
     box-shadow: 0px 10px 25px #aaa;
     background-size: cover;
     overflow: hidden;
@@ -528,12 +535,12 @@ div.quiz-wrapper {
 }
 
 div.quiz-wrapper::-webkit-scrollbar {
-    background: rgba(0,0,0,.2);
+    background: rgba(0, 0, 0, .2);
     width: 15px
 }
 
 div.quiz-wrapper::-webkit-scrollbar-thumb {
-      background-color: #333;  
+    background-color: #333;
 }
 
 
@@ -643,8 +650,7 @@ div.quiz-options-wrapper div:hover {
     cursor: pointer;
 }
 
-div.quiz-options-wrapper div:hover > p
-{
+div.quiz-options-wrapper div:hover>p {
     color: #fff;
 }
 
@@ -679,14 +685,14 @@ div.quiz-options-wrapper div span::before {
 
 }
 
-div.quiz-options-wrapper div:hover > span {
+div.quiz-options-wrapper div:hover>span {
     border: 1px solid #ddd;
     color: #fff;
     background-color: rgba(65, 179, 163, .7);
 }
 
-div.quiz-options-wrapper div:hover > span::before {
-    border-color: #fff transparent transparent transparent; 
+div.quiz-options-wrapper div:hover>span::before {
+    border-color: #fff transparent transparent transparent;
 }
 
 div.quiz-options-wrapper div p {
@@ -747,7 +753,7 @@ progress:not([value]) {
 
 progress::-webkit-progress-bar {
     background: #aaa;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
     border-radius: 25px;
     border: 1px solid #eee;
 }
@@ -790,7 +796,7 @@ section.final-result-container {
     margin: 5vh 2.5%;
     position: relative;
     box-shadow: 0px 10px 25px #aaa;
-    background: linear-gradient(to bottom right,rgba(0, 0, 0, .35), rgba(0, 0, 0, .75)), url("images/final-bg.jpeg") no-repeat center;
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, .35), rgba(0, 0, 0, .75)), url("images/final-bg.jpeg") no-repeat center;
     background-size: cover;
     border-radius: 3px;
     animation: fade .8s;
@@ -843,54 +849,7 @@ button#final-logout-btn:hover {
     border: 1px solid #fff;
     background: #555;
 }
+
 /**************************************
 ******END FINAL RESULT SECTION*********
 **************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
