@@ -65,6 +65,8 @@ let quizController = (function () {
 
     return {
 
+        getPersonLocalStorage: personLocalStorage,
+
         getQuizProgress: quizProgress,
 
         getQuestionLocalStorage: questionLocalStorage,
@@ -176,7 +178,7 @@ let quizController = (function () {
 
             personLocalStorage.setPersonData(personData);
 
-            console.log(newPerson);
+
 
         },
 
@@ -204,6 +206,8 @@ let UIController = (function () {
         questionUpdateBtn: document.getElementById("question-update-btn"),
         questionDeleteBtn: document.getElementById("question-delete-btn"),
         questionsClearBtn: document.getElementById("questions-clear-btn"),
+        resultListWrapper: document.querySelector(".results-list-wrapper"),
+        clearResultsBtn: document.getElementById("results-clear-btn"),
         // *** Quiz Panel Elements ***
         quizSection: document.querySelector(".quiz-container"),
         askedQuestionText: document.getElementById("asked-question-text"),
@@ -257,6 +261,7 @@ let UIController = (function () {
 
         editQuestionList: function (event, sotrageQuestionList, addInputsDynamically, updateQuestionListFn) {
             let getID, getStorageQuestionList, foundItem, placeInArray, optionHTML;
+
             if ('question-'.indexOf(event.target.id)) {
                 getID = parseInt(event.target.id.split('-')[1]);
 
@@ -479,6 +484,67 @@ let UIController = (function () {
 
             domItems.finalResultSection.style.display = "block";
 
+        },
+
+        addResultOnPanel: function (userdata) {
+            let index, resultHTML;
+
+            domItems.resultListWrapper.innerHTML = "";
+
+            if (userdata.getPersonData().length > 0) {
+
+                index = 1;
+
+                userdata.getPersonData().forEach(element => {
+
+                    resultHTML = `<p class="person person-${index}"><span class="person-${index}"> ${element.firstname} ${element.lastname} - ${element.score} Points</span><button id="delete-result-btn_${element.id}" class="delete-result-btn">Delete</button></p>`;
+
+                    domItems.resultListWrapper.insertAdjacentHTML("beforeend", resultHTML);
+
+                    index++;
+                });
+            }
+        },
+
+        deleteResult: function (event, userData) {
+            let getID, personsArr;
+
+            personsArr = userData.getPersonData();
+
+            if ('delete-result-btn_'.indexOf(event.target.id)) {
+
+                getID = parseInt(event.target.id.split("_")[1]);
+
+                for (let i = 0; i < personsArr.length; i++) {
+
+                    if (personsArr[i].id === getID) {
+
+                        personsArr.splice(i, 1);
+
+                        userData.setPersonData(personsArr);
+
+                    }
+
+                }
+
+            }
+
+        },
+
+        clearRelultList: function (userData) {
+
+            let conf = confirm("Warning, You will delete entire list!");
+
+            if (userData.getPersonData() !== null) {
+                if (conf) {
+
+                    userData.removePersonData();
+
+                    domItems.resultListWrapper.innerHTML = "";
+
+                }
+            }
+
         }
 
     };
@@ -579,5 +645,21 @@ let controller = (function (quizCtrl, UICtrl) {
         })
 
     });
+
+    UICtrl.addResultOnPanel(quizController.getPersonLocalStorage);
+
+    selectedDomItems.resultListWrapper.addEventListener('click', function (e) {
+
+        UICtrl.deleteResult(e, quizCtrl.getPersonLocalStorage);
+
+        UICtrl.addResultOnPanel(quizController.getPersonLocalStorage);
+
+    });
+
+    selectedDomItems.clearResultsBtn.addEventListener('click', function () {
+
+        UICtrl.clearRelultList(quizCtrl.getPersonLocalStorage);
+
+    })
 
 })(quizController, UIController);
