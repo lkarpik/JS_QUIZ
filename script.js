@@ -31,6 +31,38 @@ let quizController = (function () {
         questionIndex: 0
     }
 
+    // *** Person Constructor ***
+
+    function Person(id, firstname, lastname, score) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.score = score;
+    }
+
+    let currPersonData = {
+        fullname: [],
+        score: 0
+    };
+
+    let adminFullName = ['John', 'Smith'];
+
+    let personLocalStorage = {
+        setPersonData: function (newPersonData) {
+            localStorage.setItem('personData', JSON.stringify(newPersonData));
+        },
+        getPersonData: function () {
+            return JSON.parse(localStorage.getItem('personData'));
+        },
+        removePersonData: function () {
+            localStorage.removeItem('personData');
+        }
+    };
+
+    if (personLocalStorage.getPersonData() === null) {
+        personLocalStorage.setPersonData([]);
+    }
+
     return {
 
         getQuizProgress: quizProgress,
@@ -105,6 +137,8 @@ let quizController = (function () {
 
             if (questionLocalStorage.getQuestionCollection()[quizProgress.questionIndex].correnctAnswer === answer.textContent) {
 
+                currPersonData.score++;
+
                 return true;
 
             } else {
@@ -118,7 +152,37 @@ let quizController = (function () {
 
             return quizProgress.questionIndex + 1 === questionLocalStorage.getQuestionCollection().length;
 
-        }
+        },
+
+        addPerson: function () {
+
+            let newPerson, personId, personData;
+
+            if (personLocalStorage.getPersonData().length > 0) {
+
+                personId = personLocalStorage.getPersonData()[personLocalStorage.getPersonData().length - 1].id + 1;
+
+            } else {
+
+                personId = 0;
+
+            }
+
+            newPerson = new Person(personId, currPersonData.fullname[0], currPersonData.fullname[1], currPersonData.score);
+
+            personData = personLocalStorage.getPersonData();
+
+            personData.push(newPerson);
+
+            personLocalStorage.setPersonData(personData);
+
+            console.log(newPerson);
+
+        },
+
+        getCurrPersonData: currPersonData,
+
+        getAdminFullName: adminFullName
     };
 
 })();
@@ -131,6 +195,7 @@ let UIController = (function () {
 
     let domItems = {
         // *** Admin Panel Elements ***
+        adminPanelSection: document.querySelector(".admin-panel-container"),
         questInsertButton: document.getElementById("question-insert-btn"),
         newQuestionText: document.getElementById("new-question-text"),
         adminOptions: document.querySelectorAll(".admin-option"),
@@ -140,6 +205,7 @@ let UIController = (function () {
         questionDeleteBtn: document.getElementById("question-delete-btn"),
         questionsClearBtn: document.getElementById("questions-clear-btn"),
         // *** Quiz Panel Elements ***
+        quizSection: document.querySelector(".quiz-container"),
         askedQuestionText: document.getElementById("asked-question-text"),
         quizOptionsWrapper: document.querySelector(".quiz-options-wrapper"),
         progressBar: document.querySelector("#progress"),
@@ -147,7 +213,15 @@ let UIController = (function () {
         instantAnswerText: document.getElementById("instant-answer-text"),
         instantAnswerDiv: document.getElementById("instant-answer-wrapper"),
         emotionIcon: document.getElementById("emotion"),
-        nextQuestionBtn: document.getElementById("next-question-btn")
+        nextQuestionBtn: document.getElementById("next-question-btn"),
+        // *** Landing Page Elements ***
+        landingPageSection: document.querySelector(".landing-page-container"),
+        startQuizBtn: document.getElementById("start-quiz-btn"),
+        firstNameInput: document.getElementById("firstname"),
+        lastNameInput: document.getElementById("lastname"),
+        // *** Final Result Section Elements***
+        finalResultSection: document.querySelector(".final-result-container"),
+        finalScoreText: document.getElementById("final-score-text")
 
     };
     return {
@@ -360,6 +434,51 @@ let UIController = (function () {
 
             domItems.instantAnswerContainer.style.opacity = "0";
 
+        },
+
+        getFullName: function (currPerson, sotrageQuestionList, admin) {
+
+            if (domItems.firstNameInput.value !== "" && domItems.lastNameInput.value !== "") {
+
+                if (!(domItems.firstNameInput.value === admin[0] && domItems.lastNameInput.value === admin[1])) {
+
+                    if (sotrageQuestionList.getQuestionCollection().length > 0) {
+
+                        currPerson.fullname.push(domItems.firstNameInput.value);
+
+                        currPerson.fullname.push(domItems.lastNameInput.value);
+
+                        domItems.landingPageSection.style.display = 'none';
+
+                        domItems.quizSection.style.display = 'block';
+
+                    } else {
+
+                        alert("No question perpared, contact with admininstrator");
+
+                    }
+
+                } else {
+
+                    domItems.landingPageSection.style.display = 'none';
+
+                    domItems.adminPanelSection.style.display = 'block';
+                };
+            } else {
+
+                alert("Please enter Your name and lastname");
+
+            }
+        },
+
+        finalResult: function (currPerson) {
+
+            domItems.finalScoreText.textContent = currPerson.fullname[0] + " " + currPerson.fullname[1] + ", Your final score is: " + currPerson.score;
+
+            domItems.quizSection.style.display = "none";
+
+            domItems.finalResultSection.style.display = "block";
+
         }
 
     };
@@ -416,8 +535,9 @@ let controller = (function (quizCtrl, UICtrl) {
 
                     if (quizCtrl.isFinished()) {
 
-                        // Finish quiz
-                        console.log('finished');
+                        quizController.addPerson();
+
+                        UICtrl.finalResult(quizController.getCurrPersonData);
 
                     } else {
 
@@ -441,5 +561,23 @@ let controller = (function (quizCtrl, UICtrl) {
         }
     });
 
+    selectedDomItems.startQuizBtn.addEventListener('click', function () {
+
+        UICtrl.getFullName(quizCtrl.getCurrPersonData, quizController.getQuestionLocalStorage, quizController.getAdminFullName);
+
+    });
+
+    selectedDomItems.lastNameInput.addEventListener('focus', function () {
+
+        selectedDomItems.lastNameInput.addEventListener('keypress', function (e) {
+
+            if (e.keyCode === 13) {
+
+                UICtrl.getFullName(quizCtrl.getCurrPersonData, quizController.getQuestionLocalStorage, quizController.getAdminFullName);
+
+            }
+        })
+
+    });
+
 })(quizController, UIController);
-// 21
